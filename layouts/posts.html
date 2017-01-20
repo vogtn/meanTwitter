@@ -26,7 +26,17 @@
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.js'></script>
 <script>
 var app = angular.module('app', [])
-app.controller('PostsCtrl', function($scope, $http){
+app.controller('PostsCtrl', function($scope){
+  $scope.posts = [
+    {
+      username: 'dickeyxxx',
+      body: 'Node rules!'
+    },
+    {
+      username: 'jeffdickey',
+      body: 'trying out angular.js...'
+    }
+  ]
   $scope.addPost = function() {
     if($scope.postBody){
       $scope.posts.unshift({
@@ -36,10 +46,6 @@ app.controller('PostsCtrl', function($scope, $http){
       $scope.postBody = null;
     }
   }
-  $http.get('http://localhost:3000/api/posts')
-  .success(function (posts){
-    $scope.posts = post
-  })
 })
 
 </script>
