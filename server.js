@@ -1,10 +1,18 @@
 var express = require('express')
+var post = require('posts')
 var bodyParser = require('body-parser')
 
 var app = express()
 app.use(bodyParser.json())
 
 app.get('/api/posts', function (req, res, next) {
+  Post.find(function(err, posts) {
+    if(err) {return next(err)}
+    res.json(posts)
+  })
+})
+
+app.post('/api/posts', function(req, res) {
   var post = new Post({
     username: req.body.username,
     body: req.body.body
@@ -13,13 +21,6 @@ app.get('/api/posts', function (req, res, next) {
     if(err) {return next(err)}
     res.json(201, post)
   })
-})
-
-app.post('/api/posts', function(req, res) {
-  console.log('post recieved')
-  console.log(req.body.username)
-  console.log(req.body.body)
-  res.send(201)
 })
 
 app.listen(3000, function() {
